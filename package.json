@@ -1,0 +1,21 @@
+{
+  "name": "birthday-reminder-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "compose:up": "docker compose up --build -d",
+    "compose:down": "docker compose down",
+    "compose:restart": "npm run docker:down && npm run docker:up",
+    "infra:mongodb:up": "docker compose -f ./infra-docker/docker-compose.mongodb.yml up --build -d",
+    "infra:mongodb:down": "docker compose -f ./infra-docker/docker-compose.mongodb.yml down",
+    "infra:rabbitmq:up": "docker compose -f ./infra-docker/docker-compose.rabbitmq.yml up --build -d",
+    "infra:rabbitmq:down": "docker compose -f ./infra-docker/docker-compose.rabbitmq.yml down"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@vvo/tzdb": "^6.159.0"
+  }
+}

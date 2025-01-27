@@ -1,0 +1,47 @@
+services:
+  hbrs-app-server:
+    build:
+      context: packages/app-server
+      dockerfile: Dockerfile
+    container_name: hbrs-app-server
+    ports:
+      - "8080:3000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/hbrs_dev
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+
+  hbrs-worker-birthday-messaging:
+    build:
+      context: packages/worker-birthday-messaging
+      dockerfile: Dockerfile
+    container_name: hbrs-worker-birthday-messaging
+    ports:
+      - "8081:3000"
+    depends_on:
+      - hbrs-app-server
+      - rabbitmq
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+
+  mongodb:
+    image: mongo:8
+    container_name: mongodb
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
+volumes:
+  mongo-data:
+  rabbitmq-data:
