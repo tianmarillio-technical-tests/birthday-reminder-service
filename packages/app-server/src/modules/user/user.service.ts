@@ -71,8 +71,7 @@ export class UserService {
       9,
     )
 
-    const newUser = new this.userModel(createPayload)
-    await newUser.save()
+    await this.userModel.create(createPayload)
   }
 
   async update(userId: string, dto: UpdateUserDto): Promise<void> {

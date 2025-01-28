@@ -51,6 +51,12 @@ npm run compose:up
 docker logs hbrs-worker-birthday-messaging
 ```
 
+- Currently the only available unit test is for user creation & it's validations on app-server package. To run the test:
+```
+cd packages/app-server
+npm run test
+```
+
 ## Security Notes
 
 - For simplicity and ease of setup, MongoDB and RabbitMQ containers are currently configured without authentication.
